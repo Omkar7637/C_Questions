@@ -230,8 +230,6 @@ This prevents unintended operator precedence issues.
 
 --- 
 
-Here are the tricky C questions **with explanations in comments** and a separate detailed explanation for each.
-
 ---
 
 ## **1. Macro Expansion and Operator Precedence**
