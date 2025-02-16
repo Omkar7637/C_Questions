@@ -51,3 +51,38 @@ a: 30
 - `bar()` prints the **global** `a`, which was modified by `foo()`.
 - `main()`'s `printf()` prints the **local** `a`, which remains `30`.
 
+---
+
+`arr[10]` and `10[arr]` are valid expressions in C, but their meanings differ:  
+
+### 1. **`arr[10]` (Standard Notation)**  
+   - `arr` is an array, and `arr[10]` accesses the element at index `10`.  
+   - If `arr` is defined as `int arr[20];`, then `arr[10]` refers to the 11th element.
+
+### 2. **`10[arr]` (Pointer Arithmetic Trick)**  
+   - This works because **array indexing is commutative** in C.  
+   - `arr[10]` is internally interpreted as `*(arr + 10)`.  
+   - `10[arr]` is the same as `*(10 + arr)`, which still accesses index `10` of `arr`.
+
+### Example:
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[20] = {0}; // Declare an array with 20 elements, all initialized to 0
+    arr[10] = 42;  // Assign value 42 to the 11th element
+    
+    printf("%d\n", arr[10]);  // Standard indexing
+    printf("%d\n", 10[arr]);  // Unusual but valid indexing
+    
+    return 0;
+}
+```
+
+### Output:
+```
+42
+42
+```
+
+Even though `10[arr]` is valid, it's **not recommended** for readability reasons. Always use `arr[10]` for clarity.
