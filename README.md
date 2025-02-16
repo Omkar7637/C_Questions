@@ -515,6 +515,34 @@ int main() {
 
 ✅ **Output:** `5` (if mistakenly dividing by `ptr`, it would be `5 / 1 = 5`)
 
+Your code has a mistake in the `printf` statement. You are dividing `sizeof(arr)` by `sizeof(ptr)`, which is incorrect. It should be:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};
+    int *ptr = arr;
+
+    printf("%lu\n", sizeof(arr) / sizeof(arr[0])); // Corrected
+    return 0;
+}
+```
+
+### Explanation:
+- `sizeof(arr)`: Total size of the array (20 bytes for `int[5]` on a 32-bit system).
+- `sizeof(arr[0])`: Size of one `int` (4 bytes).
+- Correct division: `sizeof(arr) / sizeof(arr[0]) = 20 / 4 = 5`.
+
+### Issue with `sizeof(ptr)`:
+- `sizeof(ptr)` gives the size of a pointer (4 bytes on a 32-bit system, 8 bytes on a 64-bit system).
+- `sizeof(arr) / sizeof(ptr)` would give `20 / 4 = 5` (on a 32-bit system) or `20 / 8 = 2` (on a 64-bit system), which is incorrect in context.
+
+#### Correct ✅ Output:
+```
+5
+```
+
 ---
 
 ## **3. Precedence of Bitwise and Logical Operators**
