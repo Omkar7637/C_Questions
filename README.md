@@ -815,6 +815,5 @@ int main() {
 ---
 
 These **tricky C questions** test deep understanding of **pointers, macros, memory management, and operator precedence**.  
-Let me know if you want **even trickier** ones! 🚀
 
 
