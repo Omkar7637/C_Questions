@@ -228,4 +228,222 @@ To ensure the macro works as expected, always use **parentheses** in macro defin
 ```
 This prevents unintended operator precedence issues.
 
+--- 
+
+Here are the tricky C questions **with explanations in comments** and a separate detailed explanation for each.
+
+---
+
+## **1. Macro Expansion and Operator Precedence**
+```c
+#include <stdio.h>
+
+#define SQUARE(x) x * x  // Macro without parentheses
+
+int main() {
+    int a = 4;
+    printf("%d\n", SQUARE(a + 1));  // Expands to a + 1 * a + 1
+    return 0;
+}
+```
+### **Explanation:**
+- **Macro Expansion:** `SQUARE(a + 1)` expands to `a + 1 * a + 1`, not `(a + 1) * (a + 1)`.
+- **Operator Precedence:** `*` has higher precedence than `+`, so it becomes:
+  ```
+  a + (1 * a) + 1  => 4 + (1 * 4) + 1 = 9
+  ```
+- **Fix:** Always enclose macros in parentheses:
+  ```c
+  #define SQUARE(x) ((x) * (x))
+  ```
+
+✅ **Output:** `9` (instead of expected `25`)
+
+---
+
+## **2. Implicit Type Conversion**
+```c
+#include <stdio.h>
+
+int main() {
+    char c = 255;        // Signed char (-128 to 127)
+    unsigned char uc = 255;  // Unsigned (0 to 255)
+
+    if (c == uc)
+        printf("Equal\n");
+    else
+        printf("Not Equal\n");
+
+    return 0;
+}
+```
+### **Explanation:**
+- `char c = 255;` is stored as `-1` (due to sign extension in most compilers).
+- `unsigned char uc = 255;` remains `255`.
+- `if (c == uc)` → **comparison between signed and unsigned**.
+- Since `-1 != 255`, the result is **"Not Equal"**.
+
+✅ **Output:** `"Not Equal"`
+
+---
+
+## **3. Undefined Behavior - Integer Overflow**
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 2147483647; // Max value for signed int
+    x = x + 1;
+    printf("%d\n", x);
+    return 0;
+}
+```
+### **Explanation:**
+- `int` has a max value of `2147483647` (for 32-bit systems).
+- `x + 1` overflows and results in **undefined behavior**.
+- In most compilers, it wraps around to `-2147483648` (two's complement representation).
+
+✅ **Output (on most systems):** `-2147483648` (but **undefined behavior**)
+
+---
+
+## **4. String Manipulation - Pointer Modification**
+```c
+#include <stdio.h>
+
+int main() {
+    char *str = "Hello";  // String literal stored in read-only memory
+    str[0] = 'M';  // Trying to modify a string literal
+    printf("%s\n", str);
+    return 0;
+}
+```
+### **Explanation:**
+- `"Hello"` is stored in a **read-only** memory section.
+- Modifying it (`str[0] = 'M'`) **causes segmentation fault**.
+
+✅ **Output:** **Segmentation fault (runtime error)**
+
+✔ **Fix:** Use a `char` array instead:
+```c
+char str[] = "Hello";  // Modifiable array
+```
+
+---
+
+## **5. Sizeof and Arrays**
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    printf("%d\n", sizeof(arr) / sizeof(arr[0])); // Number of elements
+    return 0;
+}
+```
+### **Explanation:**
+- `sizeof(arr)` returns **total array size** (`5 * 4 = 20` bytes).
+- `sizeof(arr[0])` returns **size of one element** (`4` bytes).
+- `sizeof(arr) / sizeof(arr[0]) = 20 / 4 = 5`.
+
+✅ **Output:** `5` (correct array length)
+
+---
+
+## **6. Macro with Return Values**
+```c
+#include <stdio.h>
+
+#define INCREMENT(x) x+1  // No parentheses
+
+int main() {
+    int a = 5;
+    printf("%d\n", 2 * INCREMENT(a));
+    return 0;
+}
+```
+### **Explanation:**
+- **Macro Expansion:** `2 * INCREMENT(a)` expands to:
+  ```
+  2 * a + 1  => (2 * 5) + 1 = 11
+  ```
+  Instead of `(2 * (5 + 1)) = 12`.
+
+✔ **Fix:** Use parentheses:
+```c
+#define INCREMENT(x) ((x) + 1)
+```
+
+✅ **Output:** `11` (instead of expected `12`)
+
+---
+
+## **7. Pointer Arithmetic**
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[] = {10, 20, 30, 40};
+    printf("%d\n", 2[arr]);  
+    return 0;
+}
+```
+### **Explanation:**
+- `arr[2]` is equivalent to `*(arr + 2)`.
+- **Array indexing works both ways:** `2[arr]` is valid and **same as `arr[2]`**.
+- So, it prints `30`.
+
+✅ **Output:** `30`
+
+---
+
+## **8. Dangling Pointers**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int* fun() {
+    int x = 10;
+    return &x;  // Returning address of a local variable
+}
+
+int main() {
+    int *p = fun();
+    printf("%d\n", *p);  // Undefined behavior
+    return 0;
+}
+```
+### **Explanation:**
+- `x` is a **local variable**, which gets destroyed after `fun()` returns.
+- `p` now holds a **dangling pointer** (invalid memory address).
+- Dereferencing `*p` leads to **undefined behavior**.
+
+✔ **Fix:** Allocate memory dynamically:
+```c
+int* fun() {
+    int *x = malloc(sizeof(int));
+    *x = 10;
+    return x;
+}
+```
+
+✅ **Output:** **Undefined behavior (may crash)**
+
+---
+
+### **Summary of Issues and Fixes**
+| **Issue**                      | **Error Type**            | **Fix** |
+|--------------------------------|-------------------------|--------|
+| Macro Expansion (SQUARE)       | Operator Precedence     | Use parentheses in macro |
+| Implicit Type Conversion       | Signed vs Unsigned      | Use explicit type casting |
+| Integer Overflow               | Undefined Behavior      | Use `unsigned int` or `long long` |
+| String Literal Modification    | Segmentation Fault      | Use `char str[]` instead of `char*` |
+| `sizeof` on Array              | Misuse of `sizeof`      | Correct division method |
+| Macro Without Parentheses      | Wrong Calculation       | Add parentheses in macro |
+| `arr[2]` vs `2[arr]`           | Unusual Pointer Syntax  | Both are valid |
+| Returning Local Address        | Dangling Pointer        | Use `malloc()` for dynamic memory |
+
+---
+
+
 
