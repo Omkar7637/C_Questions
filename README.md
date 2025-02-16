@@ -326,6 +326,34 @@ int main() {
 ```c
 char str[] = "Hello";  // Modifiable array
 ```
+Your test result shows that `"Hello"` **was modifiable**, and instead of a segmentation fault, the program successfully printed `"Mello"`. This behavior depends on the compiler and execution environment.
+
+### **Why Did It Work on Your System?**
+1. **Compiler-Specific Behavior**:  
+   - Some compilers store string literals in **modifiable** memory, while others place them in **read-only** sections.
+   - Microsoft's MSVC (Visual Studio) sometimes allows modification of string literals due to historical reasons and backward compatibility.
+
+2. **Undefined Behavior** (UB):  
+   - The C standard **does not guarantee** that string literals are modifiable.
+   - While some compilers let you modify them, others **crash with segmentation faults**.
+
+### **Conclusion**
+- **Even though it worked in your case, modifying a string literal is still undefined behavior.**
+- **Portable Fix:**
+  ```c
+  char str[] = "Hello";  // Stored in stack, safe to modify
+  str[0] = 'M';
+  printf("%s\n", str);  // Prints "Mello"
+  ```
+- **Safer Alternative:**
+  ```c
+  char *str = strdup("Hello");  // Allocates modifiable memory
+  str[0] = 'M';
+  printf("%s\n", str);
+  free(str);  // Prevent memory leak
+  ```
+
+Your example highlights how **compiler behavior can influence UB outcomes**, but it's always best to follow **strictly defined C standards** for portability. 🚀
 
 ---
 
