@@ -471,5 +471,322 @@ int* fun() {
 
 ---
 
+Here are **more tricky C questions** with **code, inline comments, and separate explanations** to help you understand edge cases in C programming.
+
+---
+
+## **1. Pointer Arithmetic - Unexpected Output**
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[] = {10, 20, 30, 40};
+    int *p = arr;
+    
+    printf("%d\n", *p++);  // What gets printed?
+    return 0;
+}
+```
+### **Explanation:**
+- `*p++` **dereferences `p` first**, then increments it.
+- So, `*p++` prints `10`, **then moves to `arr[1]` (20)**.
+
+✅ **Output:** `10`
+
+---
+
+## **2. Size of Pointer vs Size of Array**
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};
+    int *ptr = arr;
+
+    printf("%lu\n", sizeof(arr) / sizeof(ptr));
+    return 0;
+}
+```
+### **Explanation:**
+- `sizeof(arr) = 20` (on a 32-bit system where `int` is 4 bytes).
+- `sizeof(ptr) = 4` (since `ptr` is a pointer, not an array).
+- `sizeof(arr) / sizeof(ptr) = 20 / 4 = 5` **(incorrect expectation)**.
+- It **should** have been `sizeof(arr) / sizeof(arr[0])`.
+
+✅ **Output:** `5` (if mistakenly dividing by `ptr`, it would be `5 / 1 = 5`)
+
+---
+
+## **3. Precedence of Bitwise and Logical Operators**
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 1, b = 2, c = 3;
+    if (a & b && c)
+        printf("True\n");
+    else
+        printf("False\n");
+
+    return 0;
+}
+```
+### **Explanation:**
+- `a & b` → `1 & 2` → `0` (bitwise AND).
+- `0 && c` → `0 && 3` → `0` (logical AND).
+- Since the condition is `0`, **"False" is printed**.
+
+✅ **Output:** `"False"`
+
+---
+
+## **4. Null Character in String**
+```c
+#include <stdio.h>
+
+int main() {
+    char str[10] = "Hello";
+    printf("%lu\n", sizeof(str));
+    return 0;
+}
+```
+### **Explanation:**
+- `str` is an array of size `10`, but `"Hello"` only occupies **6** (`5 chars + '\0'`).
+- `sizeof(str)` gives **total array size**, not string length.
+
+✅ **Output:** `10`
+
+---
+
+## **5. Unexpected Integer Promotion**
+```c
+#include <stdio.h>
+
+int main() {
+    char c = 127;
+    c += 1;
+    printf("%d\n", c);
+    return 0;
+}
+```
+### **Explanation:**
+- `char` is **signed** by default (`-128` to `127`).
+- `127 + 1` overflows, wrapping around to `-128`.
+
+✅ **Output:** `-128`
+
+---
+
+## **6. Post-Increment in Function Calls**
+```c
+#include <stdio.h>
+
+void fun(int x) {
+    printf("%d\n", x);
+}
+
+int main() {
+    int a = 5;
+    fun(a++);
+    printf("%d\n", a);
+    return 0;
+}
+```
+### **Explanation:**
+- `fun(a++)` passes `5`, but `a` **increments after function call**.
+- Then, `printf("%d\n", a);` prints `6`.
+
+✅ **Output:**  
+```
+5
+6
+```
+
+---
+
+## **7. Dangling Pointer with Malloc**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int* fun() {
+    int *ptr = (int*)malloc(sizeof(int));
+    *ptr = 42;
+    return ptr;
+}
+
+int main() {
+    int *p = fun();
+    free(p);  // Memory freed
+    printf("%d\n", *p);  // What happens?
+    return 0;
+}
+```
+### **Explanation:**
+- `p` points to freed memory.
+- Dereferencing `*p` results in **undefined behavior**.
+
+✅ **Output:** **Undefined behavior (may crash)**
+
+✔ **Fix:** Set `p = NULL` after `free(p);`
+
+---
+
+## **8. Reverse Loop Trap**
+```c
+#include <stdio.h>
+
+int main() {
+    int i;
+    for (i = 10; i >= 0; i--) {
+        printf("%d ", i);
+    }
+    return 0;
+}
+```
+### **Explanation:**
+- `i` starts from `10` and **goes to `0`**.
+- No infinite loop since `i` reaches `-1` and exits.
+
+✅ **Output:**  
+```
+10 9 8 7 6 5 4 3 2 1 0
+```
+
+---
+
+## **9. Misuse of `sizeof` on String Literal**
+```c
+#include <stdio.h>
+
+int main() {
+    printf("%lu\n", sizeof("Hello"));
+    return 0;
+}
+```
+### **Explanation:**
+- `"Hello"` **is a string literal, not an array**.
+- `sizeof("Hello")` **includes the null character (`\0`)**.
+- `"Hello"` has `5` characters + `1` null terminator.
+
+✅ **Output:** `6`
+
+---
+
+## **10. Function Pointer Confusion**
+```c
+#include <stdio.h>
+
+void hello() {
+    printf("Hello, World!\n");
+}
+
+int main() {
+    void (*func)() = hello;  // Function pointer
+    (*func)();  // Calling the function
+    return 0;
+}
+```
+### **Explanation:**
+- `func` holds the address of `hello`.
+- `(*func)();` calls `hello()`.
+- Works like **normal function calls**.
+
+✅ **Output:** `"Hello, World!"`
+
+---
+
+## **11. Strange Integer Promotion**
+```c
+#include <stdio.h>
+
+int main() {
+    char a = 255;
+    unsigned char b = 255;
+
+    if (a == b)
+        printf("Equal\n");
+    else
+        printf("Not Equal\n");
+
+    return 0;
+}
+```
+### **Explanation:**
+- `char a = 255;` stores `-1` (signed char).
+- `unsigned char b = 255;` stores `255`.
+- `if (-1 == 255)` → **false**.
+
+✅ **Output:** `"Not Equal"`
+
+---
+
+## **12. Static Variable Behavior**
+```c
+#include <stdio.h>
+
+void counter() {
+    static int count = 0;
+    count++;
+    printf("%d\n", count);
+}
+
+int main() {
+    counter();
+    counter();
+    counter();
+    return 0;
+}
+```
+### **Explanation:**
+- `static int count = 0;` retains its value across function calls.
+- Each call **increments `count` instead of resetting it**.
+
+✅ **Output:**
+```
+1
+2
+3
+```
+
+---
+
+## **13. Pointer to Constant Data**
+```c
+#include <stdio.h>
+
+int main() {
+    const int x = 10;
+    int *ptr = &x;  // Can we modify `x` using `ptr`?
+    *ptr = 20;
+    printf("%d\n", x);
+    return 0;
+}
+```
+### **Explanation:**
+- `const int x = 10;` means `x` **should not be modified**.
+- **But** `int *ptr` removes `const` (compiler may warn).
+- **Undefined behavior** occurs when modifying `x`.
+
+✅ **Output:** **Undefined behavior**
+
+✔ **Fix:** Use `const int *ptr = &x;`
+
+---
+
+### **Summary Table**
+| **Issue**                          | **Error Type**            | **Fix** |
+|------------------------------------|--------------------------|--------|
+| `*p++` unexpected output           | Pointer arithmetic       | Understand precedence |
+| `sizeof(arr) / sizeof(ptr)`         | Pointer vs array size    | Use `sizeof(arr) / sizeof(arr[0])` |
+| `c += 1;` wraparound issue         | Integer promotion        | Use `unsigned char` |
+| Post-increment in function calls   | Parameter passing        | Be aware of side effects |
+| Freeing memory then accessing it   | Dangling pointer         | Set pointer to NULL |
+| `char a = 255;` vs `unsigned char` | Signed vs unsigned       | Use explicit casting |
+
+---
+
+These **tricky C questions** test deep understanding of **pointers, macros, memory management, and operator precedence**.  
+Let me know if you want **even trickier** ones! 🚀
 
 
