@@ -817,3 +817,186 @@ int main() {
 These **tricky C questions** test deep understanding of **pointers, macros, memory management, and operator precedence**.  
 
 
+---
+----
+
+---
+
+### **1. Tricky Macro Expansion**
+```c
+#include <stdio.h>
+
+#define SQUARE(x) x*x 
+
+int main() {
+    int a = 5;
+    int result = SQUARE(a+1); 
+    printf("%d\n", result);
+    return 0;
+}
+```
+
+#### **Explanation:**
+- The macro `SQUARE(x)` expands as `x*x` without parentheses.
+- `SQUARE(a+1)` expands as `a+1*a+1`, which evaluates incorrectly due to operator precedence.
+- Instead of `(a+1) * (a+1)`, it becomes `5 + 1 * 5 + 1 = 5 + 5 + 1 = 11`, not `36`.
+- **Fix:** Use `#define SQUARE(x) ((x) * (x))` to ensure correct expansion.
+
+✅ **Output (incorrect):** `11`  
+✅ **Expected output with fix:** `36`
+
+---
+
+### **2. Difference Between Array and Pointer**
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};
+    int *ptr = arr;
+
+    printf("Size of array: %lu\n", sizeof(arr));
+    printf("Size of pointer: %lu\n", sizeof(ptr));
+
+    return 0;
+}
+```
+
+#### **Explanation:**
+- `sizeof(arr)`: Gives total size of the array (`5 * 4 = 20` on a 32-bit system).
+- `sizeof(ptr)`: Gives size of a pointer (`4` bytes on a 32-bit system, `8` bytes on a 64-bit system).
+
+✅ **Output on 32-bit system:**
+```
+Size of array: 20
+Size of pointer: 4
+```
+✅ **Output on 64-bit system:**
+```
+Size of array: 20
+Size of pointer: 8
+```
+
+---
+
+### **3. Comma Operator in Loops**
+```c
+#include <stdio.h>
+
+int main() {
+    int i = 0, j = 5;
+    
+    while (i < 5, j > 0) {
+        printf("i = %d, j = %d\n", i, j);
+        i++;
+        j--;
+    }
+
+    return 0;
+}
+```
+
+#### **Explanation:**
+- The comma operator evaluates both expressions but only considers the last one.
+- `i < 5, j > 0` results in `j > 0` being used for the loop condition.
+- The loop runs until `j == 0`, not `i == 5`.
+
+✅ **Output:**
+```
+i = 0, j = 5
+i = 1, j = 4
+i = 2, j = 3
+i = 3, j = 2
+i = 4, j = 1
+```
+
+---
+
+### **4. Pointer Arithmetic Confusion**
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[] = {10, 20, 30, 40, 50};
+    printf("%d\n", 2[arr]);  
+    return 0;
+}
+```
+
+#### **Explanation:**
+- `arr[2]` is the same as `*(arr + 2)`.
+- `2[arr]` is the same as `*(2 + arr)`, which also evaluates to `arr[2]`.
+- So, `2[arr]` prints `30`.
+
+✅ **Output:** `30`
+
+---
+
+### **5. Undefined Behavior in Post-Increment**
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 5;
+    printf("%d %d\n", a, a++);
+    return 0;
+}
+```
+
+#### **Explanation:**
+- The order of evaluation is **undefined**.
+- Some compilers might print `5 5`, others might print `5 6`.
+- **Avoid modifying and using `a` in the same expression!**
+
+✅ **Output:** Undefined (may vary).
+
+---
+
+### **6. Implicit Type Promotion**
+```c
+#include <stdio.h>
+
+int main() {
+    char c = 255;
+    printf("%d\n", c + 1);
+    return 0;
+}
+```
+
+#### **Explanation:**
+- `char c = 255;` stores `255` (which is `0xFF`).
+- `c` is promoted to `int`, making `c + 1 = 256`.
+- If `char` is signed, `c = -1`, so `c + 1 = 0`.
+
+✅ **Output (Unsigned char):** `256`  
+✅ **Output (Signed char):** `0`
+
+---
+
+### **7. Logical vs Bitwise Operators**
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 2, y = 3;
+    if (x & y)
+        printf("Bitwise AND: True\n");
+    if (x && y)
+        printf("Logical AND: True\n");
+    return 0;
+}
+```
+
+#### **Explanation:**
+- `x & y`: Performs **bitwise AND**, `2 & 3 = 2`, which is **non-zero (true)**.
+- `x && y`: Performs **logical AND**, both are **non-zero (true)**.
+
+✅ **Output:**
+```
+Bitwise AND: True
+Logical AND: True
+```
+
+---
+
+These are tricky C questions that test fundamental concepts like macros, pointer arithmetic, evaluation order, and implicit type promotion.
