@@ -86,3 +86,46 @@ int main() {
 ```
 
 Even though `10[arr]` is valid, it's **not recommended** for readability reasons. Always use `arr[10]` for clarity.
+
+---
+
+Here’s a simple C program demonstrating the return values of `scanf` and `printf`:  
+
+### **Code:**
+```c
+#include <stdio.h>
+
+int main() {
+    int num;
+    
+    // printf returns the number of characters printed
+    int printf_ret = printf("Enter a number: ");
+    
+    // scanf returns the number of successfully read inputs
+    int scanf_ret = scanf("%d", &num);
+    
+    // Display the return values
+    printf("\nprintf returned: %d\n", printf_ret);
+    printf("scanf returned: %d\n", scanf_ret);
+
+    return 0;
+}
+```
+
+### **Expected Output (Example Input: `25`)**
+```
+Enter a number: 25
+
+printf returned: 15
+scanf returned: 1
+```
+
+### **Explanation:**
+1. **`printf` Return Value:**  
+   - Returns the number of characters successfully printed.  
+   - `"Enter a number: "` has 15 characters (excluding `\0`), so `printf` returns **15**.
+
+2. **`scanf` Return Value:**  
+   - Returns the number of successfully read inputs.  
+   - Since `%d` expects an integer and we enter `25`, it reads **1** value successfully and returns **1**.  
+   - If input is invalid (e.g., entering a letter instead of a number), `scanf` may return `0` or `EOF` on failure.
