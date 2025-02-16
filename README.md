@@ -176,3 +176,56 @@ A
 ```
 
 This demonstrates **explicit typecasting**, where an `int` value is converted into a `char` based on its ASCII representation.
+
+---
+
+```c
+#include <stdio.h>  // Include standard input-output library
+
+#define NUM(x) x+x  // Macro definition: Expands as x + x (without parentheses)
+
+int main() {
+    int x = 10;  // Declare an integer variable x and assign it the value 10
+
+    // The macro expands as: NUM(x) -> x + x, so it becomes: 
+    // printf("%d", 10 + 10 / 2);
+    // Due to operator precedence, division (/) happens first: 10 / 2 = 5
+    // So the final expression becomes: 10 + 5 = 15
+    printf("%d", NUM(x) / 2);
+
+    return 0;
+}
+```
+
+---
+
+### **Explanation:**
+1. **Macro Expansion (`#define NUM(x) x+x`)**
+   - This macro expands `NUM(x)` as `x + x` (without parentheses).
+   - If `x = 10`, `NUM(x)` expands to `10 + 10`.
+
+2. **Expression in `printf` (`NUM(x)/2`)**
+   - The macro expands first:  
+     ```c
+     printf("%d", x + x / 2);
+     ```
+   - Operator precedence rules apply:  
+     - Division (`/`) has **higher precedence** than addition (`+`).
+     - `x / 2` executes first → `10 / 2 = 5`.
+     - Then `x + 5` → `10 + 5 = 15`.
+
+3. **Output:**
+   ```
+   15
+   ```
+
+---
+
+### **Fix to Avoid Unexpected Behavior**
+To ensure the macro works as expected, always use **parentheses** in macro definitions:
+```c
+#define NUM(x) ((x) + (x))  // Proper macro definition with parentheses
+```
+This prevents unintended operator precedence issues.
+
+
