@@ -129,3 +129,50 @@ scanf returned: 1
    - Returns the number of successfully read inputs.  
    - Since `%d` expects an integer and we enter `25`, it reads **1** value successfully and returns **1**.  
    - If input is invalid (e.g., entering a letter instead of a number), `scanf` may return `0` or `EOF` on failure.
+
+---
+
+```c
+#include <stdio.h>  // Include standard input-output library
+
+int main() {
+    int a = 65;  // Declare an integer variable 'a' and assign it the value 65
+
+    char b = (char)a;  // Explicitly typecast 'a' to a character and store it in 'b'
+
+    printf("%c\n", b);  // Print 'b' as a character using %c format specifier
+
+    return 0;  // Return 0 to indicate successful execution
+}
+```
+
+---
+
+### **Explanation:**
+1. **Variable Declaration (`int a = 65;`)**
+   - We declare an integer `a` and assign it the value **65**.
+   - In the ASCII table, **65** represents the character **'A'**.
+
+2. **Typecasting (`char b = (char)a;`)**
+   - The integer **65** is typecast to a `char` type.
+   - The ASCII character corresponding to **65** is **'A'**.
+   - Now, `b` holds the character **'A'**.
+
+3. **Printing the Character (`printf("%c\n", b);`)**
+   - `%c` is used to print a **character**.
+   - Since `b` holds **'A'**, the output will be:
+     ```
+     A
+     ```
+
+4. **Return Statement (`return 0;`)**
+   - Indicates that the program executed successfully.
+
+---
+
+### **Expected Output:**
+```
+A
+```
+
+This demonstrates **explicit typecasting**, where an `int` value is converted into a `char` based on its ASCII representation.
