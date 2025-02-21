@@ -1109,6 +1109,1536 @@ int main() {
 👉 **How does padding affect memory usage?**
 
 ---
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+---
 
+## **🔹 Level 1: Basics (Easy)**
+### **1. What does this `printf` statement print?**
+```c
+#include <stdio.h>
+int main() {
+    printf("%d\n", sizeof(NULL));
+    return 0;
+}
+```
+👉 **A)** `4`  
+👉 **B)** `8`  
+👉 **C)** `Compiler Error`  
+👉 **D)** `Undefined Behavior`
+
+---
+
+### **2. What will this code output?**
+```c
+#include <stdio.h>
+int main() {
+    char str[] = "Hello";
+    char *p = str;
+    p[0] = 'h';
+    printf("%s\n", str);
+    return 0;
+}
+```
+👉 **A)** `hello`  
+👉 **B)** `Hello`  
+👉 **C)** `Segmentation Fault`  
+👉 **D)** `Compiler Error`
+
+---
+
+## **🔹 Level 2: Pointers & Memory Management (Intermediate)**
+### **3. What will be the output of the following program?**
+```c
+#include <stdio.h>
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    int *ptr = arr + 2;
+    printf("%d\n", *(ptr++));
+    printf("%d\n", *ptr);
+    return 0;
+}
+```
+👉 **A)** `3 3`  
+👉 **B)** `3 4`  
+👉 **C)** `2 3`  
+👉 **D)** `Undefined Behavior`
+
+---
+
+### **4. What happens when you run this program?**
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *p = (int *)malloc(sizeof(int));
+    *p = 42;
+    free(p);
+    printf("%d\n", *p);  // Accessing freed memory
+    return 0;
+}
+```
+👉 **A)** `42`  
+👉 **B)** `Segmentation Fault`  
+👉 **C)** `Garbage Value`  
+👉 **D)** `Compiler Error`
+
+---
+
+## **🔹 Level 3: Embedded C & Linux System Programming (Advanced)**
+### **5. In an Embedded System, what does `volatile` ensure?**
+```c
+volatile int flag;
+```
+👉 **A)** Optimized variable storage  
+👉 **B)** Ensures hardware changes are visible  
+👉 **C)** Improves execution speed  
+👉 **D)** Allocates memory on the heap  
+
+---
+
+### **6. What will this Linux C program print?**
+```c
+#include <stdio.h>
+#include <unistd.h>
+
+int main() {
+    printf("PID: %d\n", getpid());
+    fork();
+    printf("Hello\n");
+    return 0;
+}
+```
+👉 **A)** `PID: 12345` then `Hello` once  
+👉 **B)** `PID: 12345` then `Hello` twice  
+👉 **C)** `Compiler Error`  
+👉 **D)** `Runs forever`
+
+---
+
+## **🔹 Level 4: Algorithms & Data Structures (Expert)**
+### **7. What is the time complexity of this sorting algorithm?**
+```c
+void sort(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (arr[i] > arr[j]) {
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+}
+```
+👉 **A)** `O(n log n)`  
+👉 **B)** `O(n^2)`  
+👉 **C)** `O(n)`  
+👉 **D)** `O(1)`
+
+---
+
+### **8. How many times will the function be called in this recursion?**
+```c
+#include <stdio.h>
+
+void func(int n) {
+    if (n == 0) return;
+    printf("%d ", n);
+    func(n / 2);
+}
+
+int main() {
+    func(16);
+    return 0;
+}
+```
+👉 **A)** `4`  
+👉 **B)** `5`  
+👉 **C)** `6`  
+👉 **D)** `8`
+
+---
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---
+
+## **🔹 Level 1: Basics**
+### **1. What is the output of this program?**  
+```c
+#include <stdio.h>
+int main() {
+    int x = 5;
+    printf("%d %d %d\n", x++, x++, ++x);
+    return 0;
+}
+```
+👉 **A)** `5 6 8`  
+👉 **B)** `7 6 8`  
+👉 **C)** `5 5 7`  
+👉 **D)** `Undefined Behavior`
+
+---
+
+### **2. What happens in this code?**  
+```c
+#include <stdio.h>
+int main() {
+    char *str = "Hello";
+    str[0] = 'h';
+    printf("%s\n", str);
+    return 0;
+}
+```
+👉 **A)** Prints `hello`  
+👉 **B)** Prints `Hello`  
+👉 **C)** Segmentation fault  
+👉 **D)** Compiler error  
+
+---
+
+## **🔹 Level 2: Pointers & Memory Management**  
+### **3. What is the output?**  
+```c
+#include <stdio.h>
+int main() {
+    int arr[] = {10, 20, 30, 40};
+    int *ptr = arr;
+    printf("%d\n", *ptr++);
+    printf("%d\n", *(ptr + 1));
+    return 0;
+}
+```
+👉 **A)** `10 20`  
+👉 **B)** `10 30`  
+👉 **C)** `20 30`  
+👉 **D)** `Compiler Error`
+
+---
+
+### **4. What happens in this `malloc()` case?**  
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *ptr = (int *)malloc(sizeof(int));
+    *ptr = 100;
+    free(ptr);
+    printf("%d\n", *ptr);
+    return 0;
+}
+```
+👉 **A)** Prints `100`  
+👉 **B)** Prints `Garbage Value`  
+👉 **C)** Segmentation Fault  
+👉 **D)** Compiler Error  
+
+---
+
+## **🔹 Level 3: Function Pointers & Recursion**
+### **5. What is printed by this function pointer?**  
+```c
+#include <stdio.h>
+
+void fun1() { printf("Fun1\n"); }
+void fun2() { printf("Fun2\n"); }
+
+int main() {
+    void (*fp)();
+    fp = fun1;
+    fp();
+    fp = fun2;
+    fp();
+    return 0;
+}
+```
+👉 **A)** `Fun1 Fun1`  
+👉 **B)** `Fun1 Fun2`  
+👉 **C)** `Fun2 Fun2`  
+👉 **D)** `Compiler Error`  
+
+---
+
+### **6. How many times does `func()` execute?**  
+```c
+#include <stdio.h>
+
+void func(int n) {
+    if (n == 0) return;
+    printf("%d ", n);
+    func(n / 2);
+}
+
+int main() {
+    func(16);
+    return 0;
+}
+```
+👉 **A)** `4`  
+👉 **B)** `5`  
+👉 **C)** `6`  
+👉 **D)** `8`  
+
+---
+
+## **🔹 Level 4: Bitwise & Undefined Behavior**
+### **7. What is the output?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 5;
+    int y = x << 1 | x >> 1;
+    printf("%d\n", y);
+    return 0;
+}
+```
+👉 **A)** `5`  
+👉 **B)** `10`  
+👉 **C)** `7`  
+👉 **D)** `Undefined Behavior`  
+
+---
+
+### **8. Structure Padding - How much memory does this struct take?**  
+```c
+#include <stdio.h>
+
+struct test {
+    char a;
+    int b;
+    short c;
+};
+
+int main() {
+    printf("%lu\n", sizeof(struct test));
+    return 0;
+}
+```
+👉 **A)** `7 bytes`  
+👉 **B)** `12 bytes`  
+👉 **C)** `8 bytes`  
+👉 **D)** `None of the above`  
+
+---
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---
+
+## **🔹 String Manipulation**  
+
+### **1. What is the output of this program?**  
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str1[] = "Hello";
+    char str2[] = "Hello";
+    if (str1 == str2)
+        printf("Same\n");
+    else
+        printf("Different\n");
+    return 0;
+}
+```
+👉 **A)** `Same`  
+👉 **B)** `Different`  
+👉 **C)** Compiler Error  
+👉 **D)** Undefined Behavior  
+
+---
+
+### **2. What does this `strcpy()` behavior lead to?**  
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char *ptr;
+    strcpy(ptr, "C Programming");
+    printf("%s\n", ptr);
+    return 0;
+}
+```
+👉 **A)** Prints `C Programming`  
+👉 **B)** Segmentation Fault  
+👉 **C)** Compiler Error  
+👉 **D)** Undefined Behavior  
+
+---
+
+### **3. What is the output of this program?**  
+```c
+#include <stdio.h>
+
+void modify(char str[]) {
+    str[0] = 'X';
+}
+
+int main() {
+    char str[] = "Hello";
+    modify(str);
+    printf("%s\n", str);
+    return 0;
+}
+```
+👉 **A)** `Xello`  
+👉 **B)** `Hello`  
+👉 **C)** `Segmentation Fault`  
+👉 **D)** Compiler Error  
+
+---
+
+## **🔹 Memory Leaks**  
+
+### **4. What happens in this memory allocation case?**  
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *p = (int *)malloc(sizeof(int) * 5);
+    p[0] = 10;
+    p[1] = 20;
+    free(p);
+    printf("%d\n", p[1]);
+    return 0;
+}
+```
+👉 **A)** Prints `20`  
+👉 **B)** Prints Garbage Value  
+👉 **C)** Segmentation Fault  
+👉 **D)** Compiler Error  
+
+---
+
+### **5. What happens if we call `free()` twice on the same pointer?**  
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *ptr = (int *)malloc(10 * sizeof(int));
+    free(ptr);
+    free(ptr);
+    return 0;
+}
+```
+👉 **A)** Works fine  
+👉 **B)** Segmentation Fault  
+👉 **C)** Compiler Error  
+👉 **D)** Undefined Behavior  
+
+---
+
+## **🔹 Advanced C Tricks**  
+
+### **6. What will this program print?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 10;
+    printf("%d %d %d\n", x, x++, ++x);
+    return 0;
+}
+```
+👉 **A)** `10 10 12`  
+👉 **B)** `10 11 12`  
+👉 **C)** `10 10 11`  
+👉 **D)** Undefined Behavior  
+
+---
+
+### **7. What is the value of `x` after this operation?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 5;
+    x = x++ + ++x;
+    printf("%d\n", x);
+    return 0;
+}
+```
+👉 **A)** `11`  
+👉 **B)** `12`  
+👉 **C)** Undefined Behavior  
+👉 **D)** `10`  
+
+---
+
+### **8. How many bytes does this struct take?**  
+```c
+#include <stdio.h>
+
+struct myStruct {
+    char a;
+    int b;
+    double c;
+};
+
+int main() {
+    printf("%lu\n", sizeof(struct myStruct));
+    return 0;
+}
+```
+👉 **A)** `13 bytes`  
+👉 **B)** `16 bytes`  
+👉 **C)** `24 bytes`  
+👉 **D)** `None of the above`  
+
+---
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
+
+## **🔹 Function Pointers**  
+
+### **1. What is the output of this program?**  
+```c
+#include <stdio.h>
+
+void fun(int x) {
+    printf("%d ", x);
+}
+
+int main() {
+    void (*ptr)(int);
+    ptr = fun;
+    (*ptr)(10);
+    ptr(20);
+    return 0;
+}
+```
+👉 **A)** `10 20`  
+👉 **B)** `20 10`  
+👉 **C)** Compiler Error  
+👉 **D)** Undefined Behavior  
+
+---
+
+### **2. What is printed in this function pointer array example?**  
+```c
+#include <stdio.h>
+
+void one() { printf("One\n"); }
+void two() { printf("Two\n"); }
+void three() { printf("Three\n"); }
+
+int main() {
+    void (*arr[3])() = {one, two, three};
+    for (int i = 0; i < 3; i++)
+        arr[i]();
+    return 0;
+}
+```
+👉 **A)** `One Two Three`  
+👉 **B)** `One One One`  
+👉 **C)** Segmentation Fault  
+👉 **D)** Compiler Error  
+
+---
+
+### **3. What is the output of this callback function example?**  
+```c
+#include <stdio.h>
+
+void callback(int (*fptr)(int, int), int a, int b) {
+    printf("%d\n", fptr(a, b));
+}
+
+int add(int x, int y) { return x + y; }
+int multiply(int x, int y) { return x * y; }
+
+int main() {
+    callback(add, 5, 10);
+    callback(multiply, 5, 10);
+    return 0;
+}
+```
+👉 **A)** `15 50`  
+👉 **B)** `50 15`  
+👉 **C)** `5 10`  
+👉 **D)** Compiler Error  
+
+---
+
+## **🔹 Recursion**  
+
+### **4. What is the output of this recursive function?**  
+```c
+#include <stdio.h>
+
+void fun(int n) {
+    if (n == 0) return;
+    printf("%d ", n);
+    fun(n - 1);
+    printf("%d ", n);
+}
+
+int main() {
+    fun(3);
+    return 0;
+}
+```
+👉 **A)** `3 2 1 1 2 3`  
+👉 **B)** `3 2 1`  
+👉 **C)** `1 2 3 3 2 1`  
+👉 **D)** Compiler Error  
+
+---
+
+### **5. What is the output of this indirect recursion?**  
+```c
+#include <stdio.h>
+
+void funB(int n);
+
+void funA(int n) {
+    if (n > 0) {
+        printf("%d ", n);
+        funB(n - 1);
+    }
+}
+
+void funB(int n) {
+    if (n > 1) {
+        printf("%d ", n);
+        funA(n / 2);
+    }
+}
+
+int main() {
+    funA(10);
+    return 0;
+}
+```
+👉 **A)** `10 9 4 3 1`  
+👉 **B)** `10 9 4 3 2 1`  
+👉 **C)** `10 9 4 3 1 2`  
+👉 **D)** `10 9 4 2 1`  
+
+---
+
+### **6. What happens in this recursive factorial program?**  
+```c
+#include <stdio.h>
+
+int fact(int n) {
+    if (n == 0)
+        return 1;
+    else
+        return n * fact(n - 1);
+}
+
+int main() {
+    printf("%d\n", fact(5));
+    return 0;
+}
+```
+👉 **A)** `120`  
+👉 **B)** `5`  
+👉 **C)** `6`  
+👉 **D)** `Undefined Behavior`  
+
+---
+
+## **🔹 Bitwise Operations**  
+
+### **7. What is the result of this bitwise AND operation?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 5, b = 3;
+    printf("%d\n", a & b);
+    return 0;
+}
+```
+👉 **A)** `1`  
+👉 **B)** `5`  
+👉 **C)** `3`  
+👉 **D)** `2`  
+
+---
+
+### **8. What is the output of this bitwise XOR operation?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 7, b = 9;
+    printf("%d\n", a ^ b);
+    return 0;
+}
+```
+👉 **A)** `14`  
+👉 **B)** `2`  
+👉 **C)** `10`  
+👉 **D)** `None of the above`  
+
+---
+
+### **9. What happens in this left shift operation?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 5;
+    printf("%d\n", x << 2);
+    return 0;
+}
+```
+👉 **A)** `5`  
+👉 **B)** `20`  
+👉 **C)** `10`  
+👉 **D)** `15`  
+
+---
+
+### **10. What is the output of this bitwise NOT operation?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 5;
+    printf("%d\n", ~x);
+    return 0;
+}
+```
+👉 **A)** `-6`  
+👉 **B)** `5`  
+👉 **C)** `6`  
+👉 **D)** `-5`  
+
+---
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---
+
+## **🔹 Macros**  
+
+### **1. What is the output of this macro expansion?**  
+```c
+#include <stdio.h>
+
+#define SQUARE(x) x * x
+
+int main() {
+    int a = 5;
+    printf("%d\n", SQUARE(a + 1));
+    return 0;
+}
+```
+👉 **A)** `36`  
+👉 **B)** `25`  
+👉 **C)** `11`  
+👉 **D)** `Compiler Error`  
+
+---
+
+### **2. What is the result of this preprocessor directive?**  
+```c
+#include <stdio.h>
+
+#define MULTIPLY(a, b) a * b
+
+int main() {
+    printf("%d\n", MULTIPLY(3 + 2, 4 + 1));
+    return 0;
+}
+```
+👉 **A)** `25`  
+👉 **B)** `20`  
+👉 **C)** `15`  
+👉 **D)** `Compiler Error`  
+
+---
+
+### **3. What happens in this token-pasting macro?**  
+```c
+#include <stdio.h>
+
+#define CONCAT(a, b) a##b
+
+int main() {
+    int xy = 10;
+    printf("%d\n", CONCAT(x, y));
+    return 0;
+}
+```
+👉 **A)** `10`  
+👉 **B)** `Compiler Error`  
+👉 **C)** `Undefined Behavior`  
+👉 **D)** `None of the above`  
+
+---
+
+## **🔹 Inline Assembly (GCC - x86)**  
+
+### **4. What is the output of this inline assembly program?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 10, b = 5, result;
+    
+    __asm__("addl %%ebx, %%eax;"
+            : "=a"(result)
+            : "a"(a), "b"(b));
+
+    printf("%d\n", result);
+    return 0;
+}
+```
+👉 **A)** `15`  
+👉 **B)** `10`  
+👉 **C)** `5`  
+👉 **D)** `Undefined Behavior`  
+
+---
+
+### **5. What does this inline assembly snippet do?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 7, y;
+    
+    __asm__("shl $1, %1; mov %1, %0;"
+            : "=r"(y)
+            : "r"(x));
+    
+    printf("%d\n", y);
+    return 0;
+}
+```
+👉 **A)** `14`  
+👉 **B)** `7`  
+👉 **C)** `1`  
+👉 **D)** `Undefined Behavior`  
+
+---
+
+## **🔹 Tricky Pointer Arithmetic**  
+
+### **6. What is the output of this pointer increment operation?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[] = {10, 20, 30, 40};
+    int *ptr = arr;
+
+    printf("%d\n", *(++ptr));
+    return 0;
+}
+```
+👉 **A)** `10`  
+👉 **B)** `20`  
+👉 **C)** `30`  
+👉 **D)** `Compiler Error`  
+
+---
+
+### **7. What happens in this pointer subtraction example?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};
+    int *p1 = &arr[4];
+    int *p2 = &arr[0];
+
+    printf("%ld\n", p1 - p2);
+    return 0;
+}
+```
+👉 **A)** `4`  
+👉 **B)** `5`  
+👉 **C)** `1`  
+👉 **D)** `Compiler Error`  
+
+---
+
+### **8. What is printed by this void pointer arithmetic example?**  
+```c
+#include <stdio.h>
+
+int main() {
+    void *ptr;
+    int x = 10;
+    ptr = &x;
+    
+    printf("%d\n", *(int *)ptr);
+    return 0;
+}
+```
+👉 **A)** `10`  
+👉 **B)** `Garbage Value`  
+👉 **C)** `Compiler Error`  
+👉 **D)** `Undefined Behavior`  
+
+---
+
+### **9. What is the output of this complex pointer arithmetic?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[] = {10, 20, 30, 40};
+    int *p = arr;
+    int **q = &p;
+
+    *q = *q + 2;
+
+    printf("%d\n", **q);
+    return 0;
+}
+```
+👉 **A)** `10`  
+👉 **B)** `20`  
+👉 **C)** `30`  
+👉 **D)** `Compiler Error`  
+
+---
+
+### **10. What happens in this pointer cast operation?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 512;
+    char *ptr = (char *)&x;
+
+    printf("%d\n", *ptr);
+    return 0;
+}
+```
+👉 **A)** `0`  
+👉 **B)** `2`  
+👉 **C)** `512`  
+👉 **D)** `Compiler Error`  
+
+---
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
+
+## **🔹 Struct Padding & Alignment**  
+
+### **1. What will be the size of the following struct?**  
+```c
+#include <stdio.h>
+
+struct A {
+    char c;
+    int i;
+    double d;
+};
+
+int main() {
+    printf("%lu\n", sizeof(struct A));
+    return 0;
+}
+```
+👉 **A)** `16`  
+👉 **B)** `24`  
+👉 **C)** `32`  
+👉 **D)** `Compiler Dependent`  
+
+---
+
+### **2. What will be the output of this struct alignment test?**  
+```c
+#include <stdio.h>
+
+struct B {
+    char a;
+    short b;
+    int c;
+};
+
+int main() {
+    printf("%lu\n", sizeof(struct B));
+    return 0;
+}
+```
+👉 **A)** `7`  
+👉 **B)** `8`  
+👉 **C)** `12`  
+👉 **D)** `6`  
+
+---
+
+### **3. What happens if we force-packed alignment?**  
+```c
+#include <stdio.h>
+#pragma pack(1)
+
+struct C {
+    char a;
+    int b;
+};
+
+int main() {
+    printf("%lu\n", sizeof(struct C));
+    return 0;
+}
+```
+👉 **A)** `5`  
+👉 **B)** `8`  
+👉 **C)** `4`  
+👉 **D)** `Compiler Error`  
+
+---
+
+### **4. What is the expected padding in the following struct?**  
+```c
+#include <stdio.h>
+
+struct D {
+    char x;
+    double y;
+    int z;
+};
+
+int main() {
+    printf("%lu\n", sizeof(struct D));
+    return 0;
+}
+```
+👉 **A)** `13`  
+👉 **B)** `16`  
+👉 **C)** `24`  
+👉 **D)** `Compiler Dependent`  
+
+---
+
+### **5. How to minimize padding in the following struct?**  
+```c
+struct E {
+    char a;
+    double b;
+    short c;
+    int d;
+};
+```
+👉 **A)** Reorder as `{ double, int, short, char }`  
+👉 **B)** Use `#pragma pack(1)`  
+👉 **C)** Both A & B  
+👉 **D)** Padding cannot be removed  
+
+---
+
+## **🔹 Undefined Behavior**  
+
+### **6. What is the output of this uninitialized variable access?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int x;
+    printf("%d\n", x);
+    return 0;
+}
+```
+👉 **A)** `0`  
+👉 **B)** `Garbage Value`  
+👉 **C)** `Compiler Error`  
+👉 **D)** `Segmentation Fault`  
+
+---
+
+### **7. What is the result of modifying a string literal?**  
+```c
+#include <stdio.h>
+
+int main() {
+    char *str = "Hello";
+    str[0] = 'h';
+    printf("%s\n", str);
+    return 0;
+}
+```
+👉 **A)** `"hello"`  
+👉 **B)** `Segmentation Fault`  
+👉 **C)** `Compiler Error`  
+👉 **D)** `Undefined Behavior`  
+
+---
+
+### **8. What happens in this signed integer overflow case?**  
+```c
+#include <stdio.h>
+#include <limits.h>
+
+int main() {
+    int x = INT_MAX;
+    printf("%d\n", x + 1);
+    return 0;
+}
+```
+👉 **A)** `-2147483648`  
+👉 **B)** `Undefined Behavior`  
+👉 **C)** `INT_MAX + 1`  
+👉 **D)** `Compiler Error`  
+
+---
+
+### **9. What is the result of this pointer dereference?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int *p = NULL;
+    printf("%d\n", *p);
+    return 0;
+}
+```
+👉 **A)** `0`  
+👉 **B)** `Segmentation Fault`  
+👉 **C)** `Compiler Error`  
+👉 **D)** `Undefined Behavior`  
+
+---
+
+### **10. What is printed in this case of pointer aliasing?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 10;
+    float *p = (float *)&x;
+    
+    printf("%f\n", *p);
+    return 0;
+}
+```
+👉 **A)** `10.000000`  
+👉 **B)** `Garbage Value`  
+👉 **C)** `Compiler Error`  
+👉 **D)** `Undefined Behavior`  
+
+---
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
+
+## **🔹 Bitwise Operations**  
+
+### **1. What is the output of this XOR swap trick?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 5, b = 7;
+    a = a ^ b;
+    b = a ^ b;
+    a = a ^ b;
+    printf("%d %d\n", a, b);
+    return 0;
+}
+```
+👉 **A)** `5 7`  
+👉 **B)** `7 5`  
+👉 **C)** `0 0`  
+👉 **D)** `Compiler Error`  
+
+---
+
+### **2. What does this bitwise expression evaluate to?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 7;  // 0111
+    int y = x & ~(x - 1);
+    printf("%d\n", y);
+    return 0;
+}
+```
+👉 **A)** `1`  
+👉 **B)** `2`  
+👉 **C)** `4`  
+👉 **D)** `7`  
+
+---
+
+## **🔹 Function Pointers**  
+
+### **3. What will be printed by this function pointer usage?**  
+```c
+#include <stdio.h>
+
+void foo() {
+    printf("Hello");
+}
+
+int main() {
+    void (*ptr)();
+    ptr = foo;
+    (*ptr)();
+    return 0;
+}
+```
+👉 **A)** `Hello`  
+👉 **B)** `Compiler Error`  
+👉 **C)** `Garbage Value`  
+👉 **D)** `Segmentation Fault`  
+
+---
+
+### **4. What happens in this case of function pointer misuse?**  
+```c
+#include <stdio.h>
+
+void greet() {
+    printf("Hi\n");
+}
+
+int main() {
+    void (*ptr)();
+    ptr = (void *)0x12345678;
+    (*ptr)();
+    return 0;
+}
+```
+👉 **A)** `Hi`  
+👉 **B)** `Segmentation Fault`  
+👉 **C)** `Compiler Error`  
+👉 **D)** `Undefined Behavior`  
+
+---
+
+## **🔹 Recursion**  
+
+### **5. What is the output of this recursive function?**  
+```c
+#include <stdio.h>
+
+void fun(int n) {
+    if (n == 0) return;
+    printf("%d ", n);
+    fun(n--);
+}
+
+int main() {
+    fun(3);
+    return 0;
+}
+```
+👉 **A)** `3 2 1`  
+👉 **B)** `3`  
+👉 **C)** `Infinite Loop`  
+👉 **D)** `Compiler Warning/Error`  
+
+---
+
+### **6. What happens in this case of deep recursion?**  
+```c
+#include <stdio.h>
+
+void recurse() {
+    recurse();
+}
+
+int main() {
+    recurse();
+    return 0;
+}
+```
+👉 **A)** `Infinite Loop`  
+👉 **B)** `Segmentation Fault`  
+👉 **C)** `Compiler Error`  
+👉 **D)** `Undefined Behavior`  
+
+---
+
+## **🔹 Pointer Arithmetic**  
+
+### **7. What will be printed in this pointer arithmetic example?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[] = {10, 20, 30, 40};
+    int *ptr = arr;
+    printf("%d\n", *(ptr + 2));
+    return 0;
+}
+```
+👉 **A)** `10`  
+👉 **B)** `20`  
+👉 **C)** `30`  
+👉 **D)** `40`  
+
+---
+
+### **8. What happens in this invalid pointer arithmetic case?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int *p = NULL;
+    printf("%d\n", *(p + 1));
+    return 0;
+}
+```
+👉 **A)** `0`  
+👉 **B)** `Segmentation Fault`  
+👉 **C)** `Garbage Value`  
+👉 **D)** `Undefined Behavior`  
+
+---
+
+### **9. What is the output of this pointer increment example?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int a = 10;
+    int *p = &a;
+    printf("%p %p\n", p, p + 1);
+    return 0;
+}
+```
+👉 **A)** Same Address  
+👉 **B)** Address Incremented by 1 Byte  
+👉 **C)** Address Incremented by 4 Bytes  
+👉 **D)** Compiler Error  
+
+---
+
+### **10. What is printed in this case of pointer aliasing?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 10;
+    float *p = (float *)&x;
+    
+    printf("%f\n", *p);
+    return 0;
+}
+```
+👉 **A)** `10.000000`  
+👉 **B)** `Garbage Value`  
+👉 **C)** `Compiler Error`  
+👉 **D)** `Undefined Behavior`  
+
+---
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---
+
+## **🔹 Struct Padding & Alignment**  
+
+### **1. What is the size of this struct?**  
+```c
+#include <stdio.h>
+
+struct A {
+    char c;
+    int i;
+};
+
+int main() {
+    printf("%lu\n", sizeof(struct A));
+    return 0;
+}
+```
+👉 **A)** `5`  
+👉 **B)** `8`  
+👉 **C)** `12`  
+👉 **D)** `16`  
+
+---
+
+### **2. What happens if we reorder struct members?**  
+```c
+#include <stdio.h>
+
+struct B {
+    char c1;
+    double d;
+    char c2;
+};
+
+int main() {
+    printf("%lu\n", sizeof(struct B));
+    return 0;
+}
+```
+👉 **A)** `10`  
+👉 **B)** `12`  
+👉 **C)** `16`  
+👉 **D)** `24`  
+
+---
+
+## **🔹 Undefined Behavior & Dangerous Code**  
+
+### **3. What is the output of this dangling pointer access?**  
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int* getMemory() {
+    int x = 10;
+    return &x;
+}
+
+int main() {
+    int *p = getMemory();
+    printf("%d\n", *p);
+    return 0;
+}
+```
+👉 **A)** `10`  
+👉 **B)** `Garbage Value`  
+👉 **C)** `Segmentation Fault`  
+👉 **D)** `Undefined Behavior`  
+
+---
+
+### **4. What happens in this integer overflow case?**  
+```c
+#include <stdio.h>
+
+int main() {
+    unsigned int x = 0;
+    x = x - 1;
+    printf("%u\n", x);
+    return 0;
+}
+```
+👉 **A)** `-1`  
+👉 **B)** `0`  
+👉 **C)** `4294967295`  
+👉 **D)** `Compiler Error`  
+
+---
+
+### **5. What happens in this case of modifying a string literal?**  
+```c
+#include <stdio.h>
+
+int main() {
+    char *s = "Hello";
+    s[0] = 'X';
+    printf("%s\n", s);
+    return 0;
+}
+```
+👉 **A)** `Xello`  
+👉 **B)** `Segmentation Fault`  
+👉 **C)** `Garbage Value`  
+👉 **D)** `Undefined Behavior`  
+
+---
+
+## **🔹 Pointer Manipulations & Type Punning**  
+
+### **6. What does this pointer casting do?**  
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 0x12345678;
+    char *p = (char*)&x;
+    printf("%x\n", *p);
+    return 0;
+}
+```
+👉 **A)** `12`  
+👉 **B)** `78`  
+👉 **C)** `34`  
+👉 **D)** `56`  
+
+---
+
+### **7. What happens in this function pointer misalignment?**  
+```c
+#include <stdio.h>
+
+void hello() {
+    printf("Hello\n");
+}
+
+int main() {
+    void (*p)() = (void*)0x12345678;
+    p();
+    return 0;
+}
+```
+👉 **A)** `Hello`  
+👉 **B)** `Segmentation Fault`  
+👉 **C)** `Garbage Value`  
+👉 **D)** `Undefined Behavior`  
+
+---
+
+## **🔹 Recursive Macros & Preprocessor Madness**  
+
+### **8. What is printed by this macro recursion?**  
+```c
+#include <stdio.h>
+
+#define ADD(x, y) x + y
+#define MULTIPLY(x, y) x * y
+
+int main() {
+    printf("%d\n", MULTIPLY(ADD(2, 3), 4));
+    return 0;
+}
+```
+👉 **A)** `20`  
+👉 **B)** `14`  
+👉 **C)** `Compiler Error`  
+👉 **D)** `Garbage Value`  
+
+---
+
+### **9. What is printed in this tricky macro expansion?**  
+```c
+#include <stdio.h>
+
+#define SQUARE(x) x * x
+
+int main() {
+    int a = 5;
+    printf("%d\n", SQUARE(a+1));
+    return 0;
+}
+```
+👉 **A)** `36`  
+👉 **B)** `25`  
+👉 **C)** `Compiler Error`  
+👉 **D)** `Garbage Value`  
+
+---
+
+## **🔹 Floating-Point Precision & Aliasing**  
+
+### **10. What happens in this float-to-int aliasing?**  
+```c
+#include <stdio.h>
+
+int main() {
+    float f = 3.14;
+    int *p = (int *)&f;
+    printf("%d\n", *p);
+    return 0;
+}
+```
+👉 **A)** `3`  
+👉 **B)** `Garbage Value`  
+👉 **C)** `Compiler Error`  
+👉 **D)** `Undefined Behavior`  
+
+---
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
