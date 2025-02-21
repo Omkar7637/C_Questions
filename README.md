@@ -1000,3 +1000,115 @@ Logical AND: True
 ---
 
 These are tricky C questions that test fundamental concepts like macros, pointer arithmetic, evaluation order, and implicit type promotion.
+
+---
+---
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+### **1. Pointers & `const` (Similar to Your Issue)**
+What will be the output of the following program?  
+
+```c
+#include <stdio.h>
+
+int main() {
+    const int i = 10;
+    int *ptr = (int *)&i;
+    *ptr = 20;
+
+    printf("i = %d\n", i);
+    printf("*ptr = %d\n", *ptr);
+
+    return 0;
+}
+```
+👉 **What will it print? Will it crash? UB?**  
+
+---
+
+### **2. Memory Allocation & Pointer Arithmetic**
+What will happen when you run this code?  
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *arr = (int *)malloc(5 * sizeof(int));
+    for (int i = 0; i < 5; i++) 
+        arr[i] = i + 1;
+
+    free(arr);
+    printf("%d\n", arr[2]);  // Accessing after free
+
+    return 0;
+}
+```
+👉 **Will it print a value, crash, or behave unpredictably?**
+
+---
+
+### **3. Function Pointers**
+What does this code output?  
+
+```c
+#include <stdio.h>
+
+void fun1() { printf("Fun1\n"); }
+void fun2() { printf("Fun2\n"); }
+
+int main() {
+    void (*fp)();
+    fp = fun1;
+    fp();
+    fp = fun2;
+    fp();
+
+    return 0;
+}
+```
+👉 **Can function pointers be reassigned like this?**
+
+---
+
+### **4. Bitwise Operations**
+What is the output of this bitwise trick?  
+
+```c
+#include <stdio.h>
+
+int main() {
+    int x = 5;  
+    int y = x << 1 | x >> 1;
+    
+    printf("%d\n", y);
+    return 0;
+}
+```
+👉 **How does left and right shifting affect the value?**
+
+---
+
+### **5. Structure Padding & Memory Alignment**
+How much memory will the following structure take?  
+
+```c
+#include <stdio.h>
+
+struct test {
+    char a;
+    int b;
+    short c;
+};
+
+int main() {
+    printf("%lu\n", sizeof(struct test));
+    return 0;
+}
+```
+👉 **How does padding affect memory usage?**
+
+---
+
+
+
