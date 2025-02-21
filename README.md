@@ -1005,7 +1005,7 @@ These are tricky C questions that test fundamental concepts like macros, pointer
 ---
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-### **1. Pointers & `const` (Similar to Your Issue)**
+### **1. Pointers & `const`**
 What will be the output of the following program?  
 
 ```c
