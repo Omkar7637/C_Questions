@@ -61,7 +61,6 @@ In C, format specifiers are used in functions like `printf` and `scanf` to defin
 
 Your error message suggests using `%lld`, `%Id`, or `%I64d`, indicating that your argument is of type `unsigned __int64`, which requires a larger format specifier than `%d`.
 
-Would you like help fixing your code? 🚀
 Code demonstrates the difference between **global** and **local variables** in C.  
 
 ### Code Analysis:
