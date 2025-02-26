@@ -1,5 +1,67 @@
 # C_Questions
+In C, format specifiers are used in functions like `printf` and `scanf` to define the type of data being handled. Below is a categorized list of format specifiers:
 
+---
+
+### **1. Integer Types**
+| Specifier | Type | Description |
+|-----------|------|-------------|
+| `%d` or `%i` | `int` | Signed decimal integer |
+| `%u` | `unsigned int` | Unsigned decimal integer |
+| `%hd` | `short int` | Signed short integer |
+| `%hu` | `unsigned short int` | Unsigned short integer |
+| `%ld` | `long int` | Signed long integer |
+| `%lu` | `unsigned long int` | Unsigned long integer |
+| `%lld` | `long long int` | Signed long long integer |
+| `%llu` | `unsigned long long int` | Unsigned long long integer |
+| `%Id` | `ptrdiff_t` | Integer type for pointer difference (MSVC specific) |
+| `%I64d` | `__int64` | 64-bit integer (MSVC specific) |
+
+---
+
+### **2. Floating-Point Types**
+| Specifier | Type | Description |
+|-----------|------|-------------|
+| `%f` | `float`, `double` | Decimal floating point (e.g., `3.14`) |
+| `%lf` | `double` | Double precision floating point |
+| `%Lf` | `long double` | Extended precision floating point |
+| `%e` or `%E` | `float`, `double` | Scientific notation (e.g., `3.14e+2`) |
+| `%g` or `%G` | `float`, `double` | Shortest representation of `%f` or `%e` |
+
+---
+
+### **3. Character and String Types**
+| Specifier | Type | Description |
+|-----------|------|-------------|
+| `%c` | `char` | Single character |
+| `%s` | `char*` | String (null-terminated) |
+
+---
+
+### **4. Pointer Type**
+| Specifier | Type | Description |
+|-----------|------|-------------|
+| `%p` | `void*` | Pointer address |
+
+---
+
+### **5. Miscellaneous**
+| Specifier | Type | Description |
+|-----------|------|-------------|
+| `%%` | - | Prints `%` symbol |
+
+---
+
+### **6. Format Specifiers for Size Compatibility**
+| Specifier | Type | Description |
+|-----------|------|-------------|
+| `%hhd` | `signed char` | Signed 8-bit integer |
+| `%hhu` | `unsigned char` | Unsigned 8-bit integer |
+| `%zd` | `size_t` | Used for `size_t` (unsigned integral type) |
+
+Your error message suggests using `%lld`, `%Id`, or `%I64d`, indicating that your argument is of type `unsigned __int64`, which requires a larger format specifier than `%d`.
+
+Would you like help fixing your code? 🚀
 Code demonstrates the difference between **global** and **local variables** in C.  
 
 ### Code Analysis:
